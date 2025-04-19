@@ -2,106 +2,42 @@
 <html lang="az">
 <head>
   <meta charset="UTF-8">
-  <title>Nəticənin yoxlanması</title>
+  <title>İmtahan Paneli</title>
   <style>
     body {
       font-family: Arial, sans-serif;
       background-color: #f4f4f4;
-      text-align: center;
-      padding: 30px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
     }
+
     h1 {
       color: #333;
     }
-    input, button {
+
+    .button {
+      display: inline-block;
+      padding: 15px 30px;
+      margin: 15px;
       font-size: 18px;
-      padding: 10px;
-      margin: 10px;
-      border-radius: 5px;
-      border: 1px solid #ccc;
-    }
-    button {
-      background-color: #28a745;
+      text-decoration: none;
       color: white;
-      cursor: pointer;
+      background-color: #007bff;
+      border-radius: 8px;
     }
-    button:hover {
-      background-color: #218838;
-    }
-    table {
-      margin: 20px auto;
-      border-collapse: collapse;
-      width: 95%;
-      max-width: 1000px;
-    }
-    th, td {
-      border: 1px solid #ccc;
-      padding: 8px 10px;
-      text-align: center;
-    }
-    th {
-      background-color: #eee;
-    }
-    .correct {
-      background-color: #d4edda;
-      color: #155724;
-    }
-    .incorrect {
-      background-color: #f8d7da;
-      color: #721c24;
+
+    .button:hover {
+      background-color: #0056b3;
     }
   </style>
 </head>
 <body>
-  <h1>Nəticənin yoxlanması</h1>
-  <input type="text" id="codeInput" placeholder="Kodunuzu daxil edin" />
-  <br>
-  <button onclick="checkCode()">Nəticəni yoxla</button>
-  <div id="output"></div>
+  <h1>İmtahan Paneli</h1>
 
-  <script>
-    const results = {"ABC123": {"name": "Məmmədov Xalid", "score": "85 bal", "correctAnswers": ["E", "E", "D", "A", "E", "A", "E", "A", "E", "E", "E", "E", "E", "E", "E", "E", "E", "E", "E", "E", "E", "E", "E", "E", "E", "E", "E", "E", "E", NaN], "studentAnswers": ["A", "C", "D", "E", "E", "E", "E", "E", "E", "E", "E", "E", "E", "E", "E", "E", "E", "E", "E", "E", "E", "E", "E", "E", "E", "E", "E", "E", "E", NaN]}, "125645": {"name": "Məmmədov İmdad", "score": "88 bal", "correctAnswers": ["E", "E", "D", "A", "E", "A", "E", "A", "E", "E", "E", "E", "E", "E", "E", "E", "E", "E", "E", "E", "E", "E", "E", "E", "E", "E", "E", "E", "E", NaN], "studentAnswers": ["E", "E", "D", "A", "E", "E", "E", "E", "E", "E", "E", "E", "E", "E", "E", "E", "E", "E", "E", "E", "E", "E", "E", "E", "E", "E", "E", "E", "E", NaN]}};
-
-    function checkCode() {
-      const input = document.getElementById("codeInput").value.trim().toUpperCase();
-      const output = document.getElementById("output");
-
-      if (!input) {
-        output.innerHTML = "<div style='color:red;'>Zəhmət olmasa kodu daxil edin.</div>";
-        return;
-      }
-
-      const result = results[input];
-      if (!result) {
-        output.innerHTML = `<div style='color:red;'>Kod <strong>${input}</strong> tapılmadı.</div>`;
-        return;
-      }
-
-      let table = "<table><tr><th>Sual №</th>";
-      for (let i = 1; i <= 30; i++) table += `<td>${i}</td>`;
-      table += "</tr>";
-
-      table += "<tr><th>Doğru cavab</th>";
-      result.correctAnswers.forEach(ans => table += `<td>${ans}</td>`);
-      table += "</tr>";
-
-      table += "<tr><th>Şagirdin cavabı</th>";
-      for (let i = 0; i < 30; i++) {
-        const isCorrect = result.correctAnswers[i] === result.studentAnswers[i];
-        const cls = isCorrect ? "correct" : "incorrect";
-        table += `<td class="${cls}">${result.studentAnswers[i]}</td>`;
-      }
-      table += "</tr>";
-
-      table += `<tr><th colspan="31">Nəticə: ${result.score}</th></tr></table>`;
-
-      output.innerHTML = `
-        <div>
-          <strong>Ad Soyad:</strong> ${result.name}<br><br>
-          ${table}
-        </div>
-      `;
-    }
-  </script>
+  <a class="button" href="https://wa.me/994556218662" target="_blank">İmtahana onlayn qeydiyyat</a>
+  <a class="button" href="netice.html">İmtahan nəticələri</a>
 </body>
 </html>
