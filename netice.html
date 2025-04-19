@@ -1,1 +1,57 @@
-<h2>Burada imtahan nəticələri olacaq...</h2>
+<!DOCTYPE html>
+<html lang="az">
+<head>
+  <meta charset="UTF-8">
+  <title>İmtahan nəticələri</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f9f9f9;
+      text-align: center;
+      padding: 40px;
+    }
+    h1 {
+      color: #333;
+      margin-bottom: 30px;
+    }
+    input, button {
+      font-size: 18px;
+      padding: 10px;
+      margin: 10px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+    button {
+      background-color: #007bff;
+      color: white;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+    .info {
+      margin-top: 40px;
+      font-size: 16px;
+      color: #666;
+    }
+  </style>
+</head>
+<body>
+  <h1>İmtahan nəticələrinin yoxlanması</h1>
+  <form action="" onsubmit="event.preventDefault(); goToResult();">
+    <input type="text" id="codeInput" placeholder="İş kodunuzu daxil edin..." required />
+    <br>
+    <button type="submit">Yoxla</button>
+  </form>
+  <div class="info">Nəticəyə baxmaq üçün kodunuzu daxil edin. Məs: <strong>ABC123</strong></div>
+
+  <script>
+    function goToResult() {
+      const code = document.getElementById("codeInput").value.trim().toUpperCase();
+      if (code) {
+        window.location.href = code + ".html";
+      }
+    }
+  </script>
+</body>
+</html>
