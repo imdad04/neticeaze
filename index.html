@@ -60,14 +60,7 @@
   <div id="output"></div>
 
   <script>
-    const results = {
-      "STU001": {
-        name: "Tələbə 1",
-        score: "83.8 bal",
-        correctAnswers: ["C","C","D","1","0","1","C","A","E","D","E","A","C","B","C","A","D","C","E","B","C","D","E","B","C","D","1","1","0","1"],
-        studentAnswers: ["C","C","D","1","0","1","C","A","E","D","E","B","C","A","C","A","D","C","E","B","C","D","E","B","C","D","1","0","1","1"]
-      }
-    };
+    const results = {"ABC123": {"name": "Məmmədov Xalid", "score": "85 bal", "correctAnswers": ["E", "E", "D", "A", "E", "A", "E", "A", "E", "E", "E", "E", "E", "E", "E", "E", "E", "E", "E", "E", "E", "E", "E", "E", "E", "E", "E", "E", "E", NaN], "studentAnswers": ["A", "C", "D", "E", "E", "E", "E", "E", "E", "E", "E", "E", "E", "E", "E", "E", "E", "E", "E", "E", "E", "E", "E", "E", "E", "E", "E", "E", "E", NaN]}, "125645": {"name": "Məmmədov İmdad", "score": "88 bal", "correctAnswers": ["E", "E", "D", "A", "E", "A", "E", "A", "E", "E", "E", "E", "E", "E", "E", "E", "E", "E", "E", "E", "E", "E", "E", "E", "E", "E", "E", "E", "E", NaN], "studentAnswers": ["E", "E", "D", "A", "E", "E", "E", "E", "E", "E", "E", "E", "E", "E", "E", "E", "E", "E", "E", "E", "E", "E", "E", "E", "E", "E", "E", "E", "E", NaN]}};
 
     function checkCode() {
       const input = document.getElementById("codeInput").value.trim().toUpperCase();
