@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+  <meta charset="UTF-8">
+  <title>Nəticənin yoxlanması</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f9f9f9;
+      text-align: center;
+      padding: 50px;
+    }
+    h1 {
+      color: #333;
+    }
+    input, button {
+      font-size: 18px;
+      padding: 10px;
+      margin: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    button {
+      background-color: #28a745;
+      color: white;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #218838;
+    }
+    .result {
+      color: green;
+      font-size: 20px;
+      margin-top: 20px;
+    }
+    .error {
+      color: red;
+      font-size: 20px;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Nəticənin yoxlanması</h1>
+  <input type="text" id="codeInput" placeholder="Kodunuzu daxil edin" />
+  <br>
+  <button onclick="checkCode()">Nəticəni yoxla</button>
+  <div id="output"></div>
+
+  <script>
+    const results = {
+      "ABC123": { name: "Məmmədov Xalid", score: "190 bal" },
+      "BGY121": { name: "Məmmədov İmdad", score: "70 bal" },
+      "RTY333": { name: "Əliyeva Günel", score: "85 bal" },
+      "QWE987": { name: "Hüseynov Rəşad", score: "100 bal" },
+      "XYZ555": { name: "Hacıyeva Nigar", score: "45 bal" },
+      "LMN321": { name: "Nəsirov Tural", score: "75 bal" }
+    };
+
+    function checkCode() {
+      const input = document.getElementById("codeInput").value.trim().toUpperCase();
+      const output = document.getElementById("output");
+
+      if (!input) {
+        output.innerHTML = "<div class='error'>Zəhmət olmasa kodu daxil edin.</div>";
+        return;
+      }
+
+      const result = results[input];
+
+      if (result) {
+        output.innerHTML = `
+          <div class="result">
+            <strong>Ad Soyad:</strong> ${result.name}<br>
+            <strong>Nəticə:</strong> ${result.score}
+          </div>
+        `;
+      } else {
+        output.innerHTML = `<div class="error">Kod <strong>${input}</strong> tapılmadı.</div>`;
+      }
+    }
+  </script>
+</body>
+</html>
