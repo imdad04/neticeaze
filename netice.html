@@ -12,7 +12,6 @@
     }
     h1 {
       color: #333;
-      margin-bottom: 30px;
     }
     input, button {
       font-size: 18px;
@@ -29,28 +28,61 @@
     button:hover {
       background-color: #0056b3;
     }
-    .info {
-      margin-top: 40px;
-      font-size: 16px;
-      color: #666;
+    table {
+      margin: 20px auto;
+      border-collapse: collapse;
+      width: 95%;
+      max-width: 1000px;
+    }
+    th, td {
+      border: 1px solid #ccc;
+      padding: 6px;
+      text-align: center;
+    }
+    .correct {
+      background-color: #d4edda;
+    }
+    .incorrect {
+      background-color: #f8d7da;
     }
   </style>
 </head>
 <body>
   <h1>İmtahan nəticələrinin yoxlanması</h1>
-  <form action="" onsubmit="event.preventDefault(); goToResult();">
-    <input type="text" id="codeInput" placeholder="İş kodunuzu daxil edin..." required />
-    <br>
-    <button type="submit">Yoxla</button>
-  </form>
-  <div class="info">Nəticəyə baxmaq üçün kodunuzu daxil edin. Məs: <strong>ABC123</strong></div>
+  <input type="text" id="codeInput" placeholder="Kodunuzu daxil edin..." />
+  <button onclick="checkResult()">Yoxla</button>
+
+  <div id="resultArea"></div>
 
   <script>
-    function goToResult() {
+    const correctAnswers = ["A", "B", "C", "D", "E", "A", "B", "C", "D", "E", "A", "B", "C", "D", "E", "A", "B", "C", "D", "E", "A", "B", "C", "D", "E", "A", "B", "C", "D", "E"];
+    const results = {"ABC123": {"name": "Məmmədov Xalid", "score": "85 bal", "answers": ["A", "B", "D", "D", "E", "A", "B", "D", "D", "E", "A", "B", "D", "D", "E", "A", "B", "D", "D", "E", "A", "B", "D", "D", "E", "A", "B", "D", "D", "E"]}, "BGY121": {"name": "Əliyeva Günel", "score": "91 bal", "answers": ["A", "B", "C", "D", "E", "A", "B", "C", "D", "E", "A", "B", "C", "D", "E", "A", "B", "C", "D", "E", "A", "B", "C", "D", "E", "A", "B", "C", "D", "E"]}};
+
+    function checkResult() {
       const code = document.getElementById("codeInput").value.trim().toUpperCase();
-      if (code) {
-        window.location.href = code + ".html";
+      const data = results[code];
+      const container = document.getElementById("resultArea");
+      if (!data) {
+        container.innerHTML = "<p style='color:red;'>Kod tapılmadı.</p>";
+        return;
       }
+
+      let table = "<table><tr><th>Sual №</th>";
+      for (let i = 1; i <= 30; i++) table += `<td>${i}</td>`;
+      table += "</tr><tr><th>Doğru cavab</th>";
+      correctAnswers.forEach(ans => table += `<td>${ans}</td>`);
+      table += "</tr><tr><th>Şagirdin cavabı</th>";
+      for (let i = 0; i < 30; i++) {
+        const cls = correctAnswers[i] === data.answers[i] ? 'correct' : 'incorrect';
+        table += `<td class='${cls}'>${data.answers[i]}</td>`;
+      }
+      table += "</tr></table>";
+
+      container.innerHTML = `
+        <h3>Ad Soyad: ${data.name}</h3>
+        <h4>Nəticə: ${data.score}</h4>
+        ${table}
+      `;
     }
   </script>
 </body>
