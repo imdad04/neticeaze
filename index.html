@@ -29,20 +29,34 @@
       background-color: #218838;
     }
     .result {
-      color: green;
       font-size: 20px;
       margin-top: 20px;
+      text-align: left;
+      display: inline-block;
     }
     .error {
       color: red;
       font-size: 20px;
       margin-top: 20px;
     }
-    .answer.correct {
-      color: green;
+    table {
+      margin-top: 20px;
+      border-collapse: collapse;
+      width: 100%;
+      max-width: 800px;
     }
-    .answer.incorrect {
-      color: red;
+    th, td {
+      border: 1px solid #ccc;
+      padding: 6px 10px;
+      text-align: center;
+    }
+    .correct {
+      background-color: #d4edda;
+      color: #155724;
+    }
+    .incorrect {
+      background-color: #f8d7da;
+      color: #721c24;
     }
   </style>
 </head>
@@ -55,15 +69,19 @@
 
   <script>
     const results = {
-      "ABC123": {
-        name: "Məmmədov Xalid",
-        score: "190 bal",
-        answers: [true, false, true, true, false]
-      },
-      "BGY121": {
-        name: "Məmmədov İmdad",
-        score: "70 bal",
-        answers: [false, false, true, false, true]
+      "STU001": {
+        name: "Tələbə 1",
+        score: "83.8 bal",
+        answers: [
+          true, true, true,
+          true, false, true,
+          true, true, true, true,
+          true, false, true, false,
+          true, true, true, true,
+          true, true, true, true,
+          true, true, true, true, true,
+          true, false, true
+        ]
       }
     };
 
@@ -77,26 +95,32 @@
       }
 
       const result = results[input];
-
-      if (result) {
-        let answerList = "<h3>Cavablar:</h3><ul style='list-style: none; padding: 0;'>";
-        result.answers.forEach((isCorrect, index) => {
-          const className = isCorrect ? "correct" : "incorrect";
-          const label = isCorrect ? "Doğru" : "Yanlış";
-          answerList += `<li class="answer ${className}">${index + 1}. ${label}</li>`;
-        });
-        answerList += "</ul>";
-
-        output.innerHTML = `
-          <div class="result">
-            <strong>Ad Soyad:</strong> ${result.name}<br>
-            <strong>Nəticə:</strong> ${result.score}<br><br>
-            ${answerList}
-          </div>
-        `;
-      } else {
-        output.innerHTML = `<div class="error">Kod <strong>${input}</strong> tapılmadı.</div>`;
+      if (!result) {
+        output.innerHTML = `<div class='error'>Kod <strong>${input}</strong> tapılmadı.</div>`;
+        return;
       }
+
+      let table = "<table><tr><th>Sual №</th>";
+      for (let i = 1; i <= result.answers.length; i++) {
+        table += `<th>${i}</th>`;
+      }
+      table += "</tr><tr><th>Nəticə</th>";
+
+      result.answers.forEach(ans => {
+        const cls = ans ? "correct" : "incorrect";
+        const text = ans ? "+" : "0";
+        table += `<td class="${cls}">${text}</td>`;
+      });
+
+      table += "</tr></table>";
+
+      output.innerHTML = `
+        <div class="result">
+          <strong>Ad Soyad:</strong> ${result.name}<br>
+          <strong>Nəticə:</strong> ${result.score}<br>
+          ${table}
+        </div>
+      `;
     }
   </script>
 </body>
