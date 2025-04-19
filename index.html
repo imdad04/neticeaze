@@ -38,6 +38,12 @@
       font-size: 20px;
       margin-top: 20px;
     }
+    .answer.correct {
+      color: green;
+    }
+    .answer.incorrect {
+      color: red;
+    }
   </style>
 </head>
 <body>
@@ -49,12 +55,16 @@
 
   <script>
     const results = {
-      "ABC123": { name: "Məmmədov Xalid", score: "190 bal" },
-      "BGY121": { name: "Məmmədov İmdad", score: "70 bal" },
-      "RTY333": { name: "Əliyeva Günel", score: "85 bal" },
-      "QWE987": { name: "Hüseynov Rəşad", score: "100 bal" },
-      "XYZ555": { name: "Hacıyeva Nigar", score: "45 bal" },
-      "LMN321": { name: "Nəsirov Tural", score: "75 bal" }
+      "ABC123": {
+        name: "Məmmədov Xalid",
+        score: "190 bal",
+        answers: [true, false, true, true, false]
+      },
+      "BGY121": {
+        name: "Məmmədov İmdad",
+        score: "70 bal",
+        answers: [false, false, true, false, true]
+      }
     };
 
     function checkCode() {
@@ -69,10 +79,19 @@
       const result = results[input];
 
       if (result) {
+        let answerList = "<h3>Cavablar:</h3><ul style='list-style: none; padding: 0;'>";
+        result.answers.forEach((isCorrect, index) => {
+          const className = isCorrect ? "correct" : "incorrect";
+          const label = isCorrect ? "Doğru" : "Yanlış";
+          answerList += `<li class="answer ${className}">${index + 1}. ${label}</li>`;
+        });
+        answerList += "</ul>";
+
         output.innerHTML = `
           <div class="result">
             <strong>Ad Soyad:</strong> ${result.name}<br>
-            <strong>Nəticə:</strong> ${result.score}
+            <strong>Nəticə:</strong> ${result.score}<br><br>
+            ${answerList}
           </div>
         `;
       } else {
