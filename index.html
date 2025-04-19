@@ -6,9 +6,9 @@
   <style>
     body {
       font-family: Arial, sans-serif;
-      background-color: #f9f9f9;
+      background-color: #f4f4f4;
       text-align: center;
-      padding: 50px;
+      padding: 30px;
     }
     h1 {
       color: #333;
@@ -17,8 +17,8 @@
       font-size: 18px;
       padding: 10px;
       margin: 10px;
-      border: 1px solid #ccc;
       border-radius: 5px;
+      border: 1px solid #ccc;
     }
     button {
       background-color: #28a745;
@@ -28,27 +28,19 @@
     button:hover {
       background-color: #218838;
     }
-    .result {
-      font-size: 20px;
-      margin-top: 20px;
-      text-align: left;
-      display: inline-block;
-    }
-    .error {
-      color: red;
-      font-size: 20px;
-      margin-top: 20px;
-    }
     table {
-      margin-top: 20px;
+      margin: 20px auto;
       border-collapse: collapse;
-      width: 100%;
-      max-width: 800px;
+      width: 95%;
+      max-width: 1000px;
     }
     th, td {
       border: 1px solid #ccc;
-      padding: 6px 10px;
+      padding: 8px 10px;
       text-align: center;
+    }
+    th {
+      background-color: #eee;
     }
     .correct {
       background-color: #d4edda;
@@ -72,16 +64,8 @@
       "STU001": {
         name: "Tələbə 1",
         score: "83.8 bal",
-        answers: [
-          true, true, true,
-          true, false, true,
-          true, true, true, true,
-          true, false, true, false,
-          true, true, true, true,
-          true, true, true, true,
-          true, true, true, true, true,
-          true, false, true
-        ]
+        correctAnswers: ["C","C","D","1","0","1","C","A","E","D","E","A","C","B","C","A","D","C","E","B","C","D","E","B","C","D","1","1","0","1"],
+        studentAnswers: ["C","C","D","1","0","1","C","A","E","D","E","B","C","A","C","A","D","C","E","B","C","D","E","B","C","D","1","0","1","1"]
       }
     };
 
@@ -90,34 +74,37 @@
       const output = document.getElementById("output");
 
       if (!input) {
-        output.innerHTML = "<div class='error'>Zəhmət olmasa kodu daxil edin.</div>";
+        output.innerHTML = "<div style='color:red;'>Zəhmət olmasa kodu daxil edin.</div>";
         return;
       }
 
       const result = results[input];
       if (!result) {
-        output.innerHTML = `<div class='error'>Kod <strong>${input}</strong> tapılmadı.</div>`;
+        output.innerHTML = `<div style='color:red;'>Kod <strong>${input}</strong> tapılmadı.</div>`;
         return;
       }
 
       let table = "<table><tr><th>Sual №</th>";
-      for (let i = 1; i <= result.answers.length; i++) {
-        table += `<th>${i}</th>`;
+      for (let i = 1; i <= 30; i++) table += `<td>${i}</td>`;
+      table += "</tr>";
+
+      table += "<tr><th>Doğru cavab</th>";
+      result.correctAnswers.forEach(ans => table += `<td>${ans}</td>`);
+      table += "</tr>";
+
+      table += "<tr><th>Şagirdin cavabı</th>";
+      for (let i = 0; i < 30; i++) {
+        const isCorrect = result.correctAnswers[i] === result.studentAnswers[i];
+        const cls = isCorrect ? "correct" : "incorrect";
+        table += `<td class="${cls}">${result.studentAnswers[i]}</td>`;
       }
-      table += "</tr><tr><th>Nəticə</th>";
+      table += "</tr>";
 
-      result.answers.forEach(ans => {
-        const cls = ans ? "correct" : "incorrect";
-        const text = ans ? "+" : "0";
-        table += `<td class="${cls}">${text}</td>`;
-      });
-
-      table += "</tr></table>";
+      table += `<tr><th colspan="31">Nəticə: ${result.score}</th></tr></table>`;
 
       output.innerHTML = `
-        <div class="result">
-          <strong>Ad Soyad:</strong> ${result.name}<br>
-          <strong>Nəticə:</strong> ${result.score}<br>
+        <div>
+          <strong>Ad Soyad:</strong> ${result.name}<br><br>
           ${table}
         </div>
       `;
